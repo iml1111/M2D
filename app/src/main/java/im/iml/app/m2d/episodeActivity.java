@@ -1,4 +1,4 @@
-package im.iml.app.smtm;
+package im.iml.app.m2d;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -28,9 +28,11 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import im.iml.app.smtm.R;
+
 public class episodeActivity extends AppCompatActivity {
     String manga_title, manga_url;
-    String domain = "https://mangashow.me";
+    String domain = "https://marumaru01.com";
     ArrayList<Episodelist> episode_list = null;
     ArrayList<Episodelist> download_list = null;
     MSMepsearch msMepsearch;
@@ -180,20 +182,22 @@ public class episodeActivity extends AppCompatActivity {
             }
 
             try {
-                Elements contents = doc.select("div.slot");
+                Elements contents = doc.selectFirst("ul.maru_list").select("li");
                 for (Element con : contents) {
-                    Elements obj = con.selectFirst("div.addedAt").selectFirst("div").select("i");
-                    String title = con.selectFirst("a").text();
+
                     String url = con.selectFirst("a").attr("href");
-                    String like = obj.eq(0).text();
+                    String like = con.selectFirst("span.pull-right.datetime.en.hidden-xs").text();
+                    con.select("span").remove();
+                    String title = con.selectFirst("a").text();
                     if (url.startsWith("http") == false) {
                         url = domain + url;
                     }
-                    Episodelist item = new Episodelist(title, url, "추천 수: " + like);
+                    Episodelist item = new Episodelist(title, url, "날짜: " + like);
                     episode_list.add(item);
                 }
             }
             catch (Exception e){
+                e.printStackTrace();
                 publishProgress("error2");
             }
             return null;
@@ -218,11 +222,16 @@ public class episodeActivity extends AppCompatActivity {
                 episode_list.add(item);
             }
             ep_adapter = new EpisodelistAdapter(getApplicationContext(), R.layout.episode_list_item, episode_list);
+
             result_list.setAdapter(ep_adapter);
             ep_adapter.notifyDataSetChanged();
             total = total + episode_list.size();
             top_result.setText(manga_title + " [총 " + total  + "화]");
             img_loading.setImageBitmap(null);
+            if(total == 0){
+                result_list.setEnabled(false);
+            }
+
         }
 
         @Override

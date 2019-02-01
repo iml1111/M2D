@@ -1,18 +1,14 @@
-package im.iml.app.smtm;
+package im.iml.app.m2d;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,14 +22,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
 import java.util.ArrayList;
+
+import im.iml.app.smtm.R;
 
 public class resultActivity extends AppCompatActivity {
     String element = "";
-    String domain = "https://mangashow.me";
-    private String search_url = "https://mangashow.me/bbs/search.php?url=https%3A%2F%2Fmangashow.me%2Fbbs%2Fsearch.php&stx=";
-    private int page = 0;
+    String domain = "https://marumaru01.com/";
+    private String search_url = "https://marumaru01.com/bbs/board.php?bo_table=maru_list2&sfl=wr_subject%7C%7Cwr_link1&stx=";
+    private int page = 1;
     Document doc;
     ArrayList<Mangalist> manga_list = null;
     boolean lastitemVisibleFlag = false;
@@ -139,18 +136,28 @@ public class resultActivity extends AppCompatActivity {
             }
 
             try {
-                Elements contents = doc.select("div.post-content.text-center");
+                Elements contents = doc.selectFirst("table.table.div-table.list-pc.bg-white")
+                                        .selectFirst("tbody")
+                                        .select("tr");
                 for (Element con : contents) {
-                    Element manga_info = con.selectFirst("div.manga-subject");
-                    String title = manga_info.text();
+                    Element manga_info = con.selectFirst("td.list-subject");
+                    //제목
+                    String title = manga_info.selectFirst("strong").text();
+                    //URL
                     String link = manga_info.selectFirst("a").attr("href");
                     if (link.startsWith("http") == false) {
                         link = domain + link;
                     }
-                    String tag = con.selectFirst("div.tags").text();
-                    if (tag.trim().equals(null) || tag.trim().equals("")) {
+                    //태그
+                    String tag = "/ ";
+                    Elements tag_list = con.selectFirst("div.list-genre").select("button");
+                    for(Element btn: tag_list){
+                        tag = tag + btn.text() + " / ";
+                    }
+                    if (tag.trim().equals("/")) {
                         tag = "없음";
                     }
+
                     Mangalist item = new Mangalist(title, link, "태그: " + tag);
                     manga_list.add(item);
                 }
@@ -167,7 +174,6 @@ public class resultActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"URL 접근 실패. 문제가 지속될 경우, 관리자에 문의바랍니다.",Toast.LENGTH_LONG).show();
             }
             else if(Params[0].equals("error2")){
-                Toast.makeText(getApplicationContext(),"페이지 구조 분석 실패. 관리자에게 문의바랍니다.",Toast.LENGTH_LONG).show();
             }
         }
 

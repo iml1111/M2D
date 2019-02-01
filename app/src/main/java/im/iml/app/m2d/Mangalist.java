@@ -1,4 +1,4 @@
-package im.iml.app.smtm;
+package im.iml.app.m2d;
 
 public class Mangalist {
     private String title;

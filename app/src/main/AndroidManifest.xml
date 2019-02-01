@@ -17,10 +17,10 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_id"/>
-        <activity android:name=".DownloadActivity"></activity>
-        <activity android:name=".episodeActivity" />
-        <activity android:name=".resultActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="im.iml.app.m2d.DownloadActivity"></activity>
+        <activity android:name="im.iml.app.m2d.episodeActivity" />
+        <activity android:name="im.iml.app.m2d.resultActivity" />
+        <activity android:name="im.iml.app.m2d.MainActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-Z
     </application>
 
 </manifest>

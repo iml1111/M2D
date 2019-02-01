@@ -1,4 +1,4 @@
-package im.iml.app.smtm;
+package im.iml.app.m2d;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,12 +10,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class EpisodelistAdapter extends BaseAdapter {
+import im.iml.app.smtm.R;
+
+public class MangalistAdapter extends BaseAdapter {
+
     private LayoutInflater inflater;
-    private ArrayList<Episodelist> data;
+    private ArrayList<Mangalist> data;
     private int layout;
 
-    public EpisodelistAdapter(Context context, int layout, ArrayList<Episodelist> data){
+    public MangalistAdapter(Context context, int layout, ArrayList<Mangalist> data) {
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.data = data;
         this.layout = layout;
@@ -35,15 +38,15 @@ public class EpisodelistAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = inflater.inflate(layout, parent, false);
+    public View getView(int position, View convertView, ViewGroup parent){
+        if(convertView == null){
+            convertView = inflater.inflate(layout,parent,false);
         }
-        Episodelist item = data.get(position);
+        Mangalist item = data.get(position);
         TextView title = convertView.findViewById(R.id.title);
         title.setText(item.getTitle());
-        TextView like = convertView.findViewById(R.id.like);
-        like.setText(item.getLike());
+        TextView tags = convertView.findViewById(R.id.tags);
+        tags.setText(item.getTags());
 
         return convertView;
     }

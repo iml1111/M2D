@@ -1,4 +1,4 @@
-package im.iml.app.smtm;
+package im.iml.app.m2d;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -46,6 +46,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
+
+import im.iml.app.smtm.R;
 
 public class DownloadActivity extends AppCompatActivity {
     ArrayList<Episodelist> download_list = new ArrayList<Episodelist>();
@@ -199,7 +201,7 @@ public class DownloadActivity extends AppCompatActivity {
                 savePath = Environment.getExternalStorageDirectory().toString() + "/Download";
                 savePath = savePath + "/" + title;
                 try {
-                    Elements imgtags = tag.select("img");
+                    Elements imgtags = tag.select("a");
                     int cnt = 0, tag_length = 0;
                     for (Element imgtag : imgtags) {
                         tag_length++;
@@ -208,6 +210,7 @@ public class DownloadActivity extends AppCompatActivity {
                         return null;
                     }
                     for (Element imgtag : imgtags) {
+                        imgtag = imgtag.selectFirst("img");
                         String extend = ".jpg";
                         @SuppressLint("DefaultLocale") String cnt_format = String.format("_%03d", cnt + 1);
                         String localPath = savePath + "/" + title + cnt_format + extend;

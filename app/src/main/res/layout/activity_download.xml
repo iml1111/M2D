@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DownloadActivity">
+    tools:context="im.iml.app.m2d.DownloadActivity">
 
     <WebView
         android:id="@+id/webView"

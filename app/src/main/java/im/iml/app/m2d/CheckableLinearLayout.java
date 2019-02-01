@@ -1,10 +1,12 @@
-package im.iml.app.smtm;
+package im.iml.app.m2d;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.CheckBox;
 import android.widget.Checkable;
 import android.widget.LinearLayout;
+
+import im.iml.app.smtm.R;
 
 public class CheckableLinearLayout extends LinearLayout implements Checkable {
     public CheckableLinearLayout(Context context, AttributeSet attrs) {

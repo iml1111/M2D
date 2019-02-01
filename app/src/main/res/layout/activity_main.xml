@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity" >
+    tools:context="im.iml.app.m2d.MainActivity" >
 
     <TextView
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:background="@color/mscolor"
         android:gravity="center"
-        android:text="SHOW ME THE MANGA"
+        android:text="MARUMARU 2 DOWNLOADER"
         android:textColor="#FFFFFF"
         android:textSize="37sp"
         android:textStyle="bold" />

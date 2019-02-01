@@ -1,4 +1,4 @@
-package im.iml.app.smtm;
+package im.iml.app.m2d;
 
 import android.os.Parcel;
 import android.os.Parcelable;
